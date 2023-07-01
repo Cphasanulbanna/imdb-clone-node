@@ -1,8 +1,9 @@
 const Movie = require("../models/movieModel");
+const movies = require("../movies.json");
 
 const getMovies = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) - 1 || 0;
+        const page = req.query.search ? 0 : parseInt(req.query.page) - 1 || 0;
         const limit = parseInt(req.query.limit) || 5;
         const search = req.query.search || "";
         let sort = req.query.sort || "rating";
@@ -56,5 +57,18 @@ const getMovies = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// const insertMovies = async () => {
+//     try {
+//         const docs = await Movie.insertMany(movies);
+//         return Promise.resolve(docs);
+//     } catch (error) {
+//         return Promise.reject(error);
+//     }
+// };
+
+// insertMovies()
+//     .then((docs) => console.log(docs))
+//     .catch((error) => console.log(error));
 
 module.exports = { getMovies };
