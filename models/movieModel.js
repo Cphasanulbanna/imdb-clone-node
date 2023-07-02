@@ -13,10 +13,13 @@ const movieSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    genre: {
-        type: [String],
-        required: true,
-    },
+    genre: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "Genre",
+        },
+    ],
     rating: {
         type: Number,
         required: true,
